@@ -1,0 +1,48 @@
+{
+  "name": "testhello",
+  "displayName": "testVSCodeTaskProvider",
+  "description": "",
+  "publisher": "allav",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "taskDefinitions": [
+      {
+        "type": "test-task-provider",
+        "required": [
+          "label",
+          "prop1"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Label"
+          },
+          "prop1": {
+            "type": "string",
+            "description": "text"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.45.0",
+    "typescript": "^3.6.4",
+    "tslint": "^5.20.0"
+  }
+}
