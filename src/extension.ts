@@ -13,17 +13,17 @@ interface TestTaskDefinition extends TaskDefinition {
 class TestTaskProvider implements TaskProvider {
     provideTasks(): Task[] {
         const taskDef = { type: "test-task-provider", label: "testQA", prop1: "value1" };
-        const task = this.createTask(taskDef, "echo [${command:testCommand1}]");
+        const task = this.createTask(taskDef, "sleep 2; echo [${command:testCommand1}]");
 
         return [task];
     }
 
-    resolveTask(task: vscode.Task): vscode.ProviderResult<vscode.Task> {
+    resolveTask(task: vscode.Task): Task | undefined {
         if (task.definition.type !== "test-task-provider") {
             return undefined;
         }
         const taskDef = task.definition as TestTaskDefinition;
-        return this.createTask(taskDef, "echo [${command:testCommand2}]");
+        return this.createTask(taskDef, "sleep 2; echo [${command:testCommand2}]");
     }
 
     private createTask(taskDefinition: TestTaskDefinition, command: string): Task {
@@ -34,8 +34,7 @@ class TestTaskProvider implements TaskProvider {
             scope,
             taskDefinition.label,
             "test-task-provider",
-            new ShellExecution(command, { cwd: "." }),
-            []
+            new ShellExecution(command, { cwd: "." })
         );
     }
 }
